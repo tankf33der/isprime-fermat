@@ -3,7 +3,6 @@
       2
       (% (in "/dev/urandom" (rd (size N))) N) ) )
 (de **Mod (X Y N)
-   (println 'X X 'Y Y 'N N)
    (let M 1
       (loop
          (when (bit? 1 Y)
@@ -18,16 +17,10 @@
       (and
          (> N 1)
          (bit? 1 N)
-         (println 'N N)
-         (let A NIL
-            (do K
-               (setq A (**Mod (longRand (dec N)) (dec N) N))
-               (println 'A A)
-               (NIL (=1 A))
-               T ) ) ) ) )
+         (do K
+            (NIL (=1 (**Mod (longRand (dec N)) (dec N) N)))
+            T ) ) ) )
 
-(println (isprime 2152302898747))
-
-(msg 'ok)
-(bye)
+# (println (isprime 2152302898747))
+# (println (isprime 52633))
 
