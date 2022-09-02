@@ -2,26 +2,27 @@
    (max
       2
       (% (in "/dev/urandom" (rd (size N))) N) ) )
+(de **Mod (X Y N)
+   (let M 1
+      (loop
+         (when (bit? 1 Y)
+            (setq M (% (* M X) N)) )
+         (T (=0 (setq Y (>> 1 Y))) M)
+         (setq X (% (* X X) N)) ) ) )
 # https://en.wikipedia.org/wiki/Fermat_primality_test
 (de isprime (N K)
-   (default K 16)
-   (do K
-      (let A (longRand (dec N))
-         # (println (% (** A (dec N)) N))
-         (println (** A (dec N)))
-      )
-   )
-)
+   (default K 8)
+   (or
+      (= 2 N)
+      (and
+         (> N 1)
+         (bit? 1 N)
+         (do K
+            (NIL (=1 (**Mod (longRand (dec N)) (dec N) N)))
+            T ) ) ) )
 
-# (println (isprime 221 8))
-(isprime 5393 8)
-# (isprime 115249 8)
-# (println (isprime 193939 8))
-
-
-
-
-
+(println (isprime 2152302898747))
 
 (msg 'ok)
 (bye)
+
