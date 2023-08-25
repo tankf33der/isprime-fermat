@@ -5,7 +5,7 @@
       (let
          (N (hex (cdr (assoc "value" L)))
             R (cdr (assoc "result" L))
-            I (isprime N) )
+            I (isprime N 16) )
          (prin ".")
          (flush)
          (cond

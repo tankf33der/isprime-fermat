@@ -1,7 +1,12 @@
-(de longRand (N)  # 2:N-1
+(de longRand (N)  # [2:N-2]
    (max
       2
-      (% (in "/dev/urandom" (rd (size N))) N) ) )
+      (use (R D)
+         (while (=0 (setq R (abs (rand)))))
+         (until (> R N)
+            (unless (=0 (setq D (abs (rand))))
+               (setq R (* R D)) ) )
+         (% R N) ) ) )
 (de **Mod (X Y N)
    (let M 1
       (loop
@@ -20,7 +25,3 @@
          (do K
             (NIL (=1 (**Mod (longRand (dec N)) (dec N) N)))
             T ) ) ) )
-
-# (println (isprime 2152302898747))
-# (println (isprime 52633))
-
